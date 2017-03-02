@@ -6,7 +6,7 @@ var useEmulator = (process.env.NODE_ENV == 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
     appId: process.env['MicrosoftAppId'],
-    appPassword: process.env['MicrosoftAppPassword'],
+    //appPassword: process.env['MicrosoftAppPassword'],
     stateEndpoint: process.env['BotStateEndpoint'],
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
@@ -24,8 +24,11 @@ bot.dialog('/', dialog);
 dialog.matches('RaiseIncident', function (session, args, next) {
     var application = args.entities;
     var entity = builder.EntityRecognizer.findEntity(args.entities, 'Application');
-    session.send('OK, creating an incident on %s', entity.entity);
+    if (entity) {
+        session.send('OK, creating an incident on %s', JSON.stringify(entity));
+    }
 })
+
 
 dialog.matches('None', function (session, args, next) {
     var application = args.entities;
