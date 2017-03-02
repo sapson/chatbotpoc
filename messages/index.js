@@ -27,7 +27,7 @@ dialog.matches('RaiseIncident', function (session, args, next) {
     //session.send('OK, creating an incident on %s', JSON.stringify(application));
     session.send('OK, creating an incident on %s', application[0].entity);
     
-}).matches('None', function (session, args, next) {
+}).onDefault(function (session, args, next) {
     session.send('Sorry, I\'m not yet smart enough to understand that');
 })
 
