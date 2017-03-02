@@ -17,6 +17,10 @@ bot.dialog('/', function (session) {
     session.send('You said ' + session.message.text);
 });
 
+bot.dialog('/help', function (session) {
+    session.send('You wanted help ' + session.message.text);
+});
+
 if (useEmulator) {
     var restify = require('restify');
     var server = restify.createServer();
