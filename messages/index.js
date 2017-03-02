@@ -25,6 +25,7 @@ dialog.matches('RaiseIncident', function (session, args, next) {
     var application = args.entities;
     //var entity = builder.EntityRecognizer.findEntity(args.entities, 'Application');
     session.send('OK, creating an incident on %s', JSON.stringify(application));
+    session.send('OK, creating an incident on %s', application[0].entity);
     
 })
 
