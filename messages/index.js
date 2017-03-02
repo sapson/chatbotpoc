@@ -33,7 +33,7 @@ dialog.matches('RaiseIncident', function (session, args, next) {
     var application = args.entities;
     session.send('OK, help is on the way');  
 }).onDefault('None', function (session) {
-    session.send('Sorry, I\'m not yet smart enough to understand that');
+    session.send('Sorry, I am not smart enough to understand that');
 });
 
 if (useEmulator) {
