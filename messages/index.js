@@ -22,7 +22,7 @@ bot.dialog('/', dialog);
 
 //Dialog intent handlers
 dialog.matches('RaiseIncident', function (session, args, next) {
-    var application = args.entities;
+    var application = args.entities[0];
     session.send('OK, creating an incident on %s', application.entity);
 })
 
