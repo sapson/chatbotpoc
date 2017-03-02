@@ -22,9 +22,7 @@ bot.dialog('/', dialog);
 
 //Dialog intent handlers
 dialog.matches('RaiseIncident', function (session, args, next) {
-    console.log(args);
-    var application = args.entities;
-    console.log(application);
+    var application = builder.EntityRecognizer.findEntity(args.entities, 'application');
     session.send('OK, creating an incident on %s', application.entity);
 })
 
