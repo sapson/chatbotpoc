@@ -24,14 +24,10 @@ bot.dialog('/', dialog);
 dialog.matches('RaiseIncident', function (session, args, next) {
     var application = args.entities;
     //var entity = builder.EntityRecognizer.findEntity(args.entities, 'Application');
-    session.send('OK, creating an incident on %s', JSON.stringify(application));
+    //session.send('OK, creating an incident on %s', JSON.stringify(application));
     session.send('OK, creating an incident on %s', application[0].entity);
     
-})
-
-
-dialog.matches('None', function (session, args, next) {
-    var application = args.entities;
+}).matches('None', function (session, args, next) {
     session.send('Sorry, I\'m not yet smart enough to understand that');
 })
 
