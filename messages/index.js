@@ -23,7 +23,12 @@ bot.dialog('/', dialog);
 //Dialog intent handlers
 dialog.matches('RaiseIncident', function (session, args, next) {
     var application = args.entities;
-    session.send('OK, creating an incident on %s', application);
+    session.send('OK, creating an incident on %s', application.entity);
+})
+
+dialog.matches('None', function (session, args, next) {
+    var application = args.entities;
+    session.send('Sorry, I\'m not yet smart enough to understand that);
 })
 
 if (useEmulator) {
