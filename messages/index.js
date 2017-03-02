@@ -26,8 +26,13 @@ dialog.matches('RaiseIncident', function (session, args, next) {
     //var entity = builder.EntityRecognizer.findEntity(args.entities, 'Application');
     //session.send('OK, creating an incident on %s', JSON.stringify(application));
     session.send('OK, creating an incident on %s', application[0].entity);
-    
-}).onDefault(function (session) {
+}).matches('GetInformation', function (session, args, next) {
+    var application = args.entities;
+    session.send('OK, you want some information on %s', application[0].entity);  
+}).matches('RequestHelp', function (session, args, next) {
+    var application = args.entities;
+    session.send('OK, help is on the way');  
+}).onDefault('None', function (session) {
     session.send('Sorry, I\'m not yet smart enough to understand that');
 });
 
