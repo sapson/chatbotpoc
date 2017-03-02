@@ -18,7 +18,7 @@ var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/5b1066af-
 var recognizer = new builder.LuisRecognizer(model);
 var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 
-bot.dialog('/', dialog);
+bot.dialog('/', dialog)
 
 //Dialog intent handlers
 dialog.matches('RaiseIncident', function (session, args, next) {
@@ -27,9 +27,9 @@ dialog.matches('RaiseIncident', function (session, args, next) {
     //session.send('OK, creating an incident on %s', JSON.stringify(application));
     session.send('OK, creating an incident on %s', application[0].entity);
     
-}).onDefault(function (session, args, next) {
+}).onDefault(function (session) {
     session.send('Sorry, I\'m not yet smart enough to understand that');
-})
+});
 
 if (useEmulator) {
     var restify = require('restify');
@@ -41,3 +41,4 @@ if (useEmulator) {
 } else {
     module.exports = { default: connector.listen() }
 }
+
