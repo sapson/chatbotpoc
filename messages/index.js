@@ -24,9 +24,8 @@ bot.dialog('/', dialog);
 dialog.matches('RaiseIncident', function (session, args, next) {
     var application = args.entities;
     var entity = builder.EntityRecognizer.findEntity(args.entities, 'Application');
-    if (entity) {
-        session.send('OK, creating an incident on %s', JSON.stringify(entity));
-    }
+    session.send('OK, creating an incident on %s', JSON.stringify(application));
+    
 })
 
 
