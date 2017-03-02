@@ -28,7 +28,7 @@ dialog.matches('RaiseIncident', function (session, args, next) {
 
 dialog.matches('None', function (session, args, next) {
     var application = args.entities;
-    session.send('Sorry, I\'m not yet smart enough to understand that);
+    session.send('Sorry, I\'m not yet smart enough to understand that');
 })
 
 if (useEmulator) {
