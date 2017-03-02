@@ -13,28 +13,19 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 
 var bot = new builder.UniversalBot(connector);
 
-bot.dialog('/', [
-    function (session, args, next) {
-        if (!session.userData.name) {
-            session.beginDialog('/profile');
-        } else {
-            next();
-        }
-    },
-    function (session, results) {
-        session.send('Hello %s!', session.userData.name);
-    }
-]);
+//LUIS recognizer that points at our model 
+var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/5b1066af-61fe-4e69-9a21-a65de3bae211?subscription-key=96a2dfeb33e0482b884e2625b49ce68f&verbose=true';
+var recognizer = new builder.LuisRecognizer(model);
+var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 
-bot.dialog('/profile', [
-    function (session) {
-        builder.Prompts.text(session, 'Hi! What is your name?');
-    },
-    function (session, results) {
-        session.userData.name = results.response;
-        session.endDialog();
-    }
-]);
+bot.dialog('/', dialog);
+
+//Dialog intent handlers
+dialog.matches('RaiseIncident', function (session, args, next) {
+    var application = args.entities;
+    session.send('OK, creating an incident on %s', application);
+})
+
 if (useEmulator) {
     var restify = require('restify');
     var server = restify.createServer();
