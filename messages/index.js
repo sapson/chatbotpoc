@@ -18,22 +18,18 @@ var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/5b1066af-
 var recognizer = new builder.LuisRecognizer(model);
 var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 
-bot.dialog('/', [
-    function (session, args, next) {
-        if (!session.userData.name) {
-            session.beginDialog('/profile');
-        } else {
-            next();
-        }
-    },
-    function (session, results) {
-        session.send('Hello %s!', session.userData.name);
-        session.send('How can I help you, %s ?',session.userData.name);
-    },
-    dialog
-]);
+bot.dialog('/', dialog);
 
 //Dialog intent handlers
+dialog.matches(/^change name/i, [
+    function (session) {
+        session.beginDialog('/profile');
+    },
+    function (session, results) {
+        session.send('Ok... Changed your name to %s', session.userData.name);
+    }
+]);
+
 dialog.matches('RaiseIncident', function (session, args, next) {
     var application = args.entities;
     //var entity = builder.EntityRecognizer.findEntity(args.entities, 'Application');
@@ -45,9 +41,20 @@ dialog.matches('RaiseIncident', function (session, args, next) {
 }).matches('RequestHelp', function (session, args, next) {
     var application = args.entities;
     session.send('OK, help is on the way');  
-}).onDefault('None', function (session) {
-    session.send('Sorry, I am not smart enough to understand that');
-});
+})
+
+dialog.onDefault([
+    function (session, args, next) {
+        if (!session.userData.name) {
+            session.beginDialog('/profile');
+        } else {
+            next();
+        }
+    },
+    function (session, results) {
+        session.send('Hello %s!', session.userData.name);
+    }
+]);
 
 bot.dialog('/profile', [
     function (session) {
