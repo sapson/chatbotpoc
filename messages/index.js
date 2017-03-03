@@ -48,14 +48,14 @@ dialog.matches('RaiseIncident', function (session, args, next) {
     session.send('OK, creating an incident on %s', application[0].entity);
 }).matches('GetInformation', function (session, args, next) {
     var application = args.entities;
-    session.send('OK, you want some information on %s', application[0].entity);
+    session.send('You want some information on %s, please have a look at %s', application[0].entity,'https://gemhelp.azurewebsites.net');
 }).matches('RequestHelp', function (session, args, next) {
     var application = args.entities;
     session.send('OK, help is on the way');
 })
-
+/*
 dialog.onDefault(builder.DialogAction.send("I'm sorry. I'm not smart enough to repsond to that."));
-
+*/
 bot.dialog('/profile', [
     function (session) {
         builder.Prompts.text(session, 'Hi! What is your name?');
