@@ -16,9 +16,20 @@ var bot = new builder.UniversalBot(connector);
 //LUIS recognizer that points at our model 
 var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/5b1066af-61fe-4e69-9a21-a65de3bae211?subscription-key=96a2dfeb33e0482b884e2625b49ce68f&verbose=true';
 var recognizer = new builder.LuisRecognizer(model);
-var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
+var dialog = new builder.IntentDialog({
+    recognizers: [recognizer]
+});
 
 bot.dialog('/', dialog);
+
+//Begin dialog
+dialog.onBegin(function (session, args, next) {
+    if (!session.userData.name) {
+        session.beginDialog('/profile');
+    } else {
+        next();
+    }
+})
 
 //Dialog intent handlers
 dialog.matches(/^change name/i, [
@@ -37,24 +48,13 @@ dialog.matches('RaiseIncident', function (session, args, next) {
     session.send('OK, creating an incident on %s', application[0].entity);
 }).matches('GetInformation', function (session, args, next) {
     var application = args.entities;
-    session.send('OK, you want some information on %s', application[0].entity);  
+    session.send('OK, you want some information on %s', application[0].entity);
 }).matches('RequestHelp', function (session, args, next) {
     var application = args.entities;
-    session.send('OK, help is on the way');  
+    session.send('OK, help is on the way');
 })
 
-dialog.onDefault([
-    function (session, args, next) {
-        if (!session.userData.name) {
-            session.beginDialog('/profile');
-        } else {
-            next();
-        }
-    },
-    function (session, results) {
-        session.send('Hello %s!', session.userData.name);
-    }
-]);
+dialog.onDefault(builder.DialogAction.send("I'm sorry. I'm not smart enough to repsond to that."));
 
 bot.dialog('/profile', [
     function (session) {
@@ -69,11 +69,12 @@ bot.dialog('/profile', [
 if (useEmulator) {
     var restify = require('restify');
     var server = restify.createServer();
-    server.listen(3978, function() {
+    server.listen(3978, function () {
         console.log('test bot endpont at http://localhost:3978/api/messages');
     });
-    server.post('/api/messages', connector.listen());    
+    server.post('/api/messages', connector.listen());
 } else {
-    module.exports = { default: connector.listen() }
+    module.exports = {
+        default: connector.listen()
+    }
 }
-
