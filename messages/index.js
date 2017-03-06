@@ -53,9 +53,11 @@ dialog.matches('RaiseIncident', function (session, args, next) {
     var application = args.entities;
     session.send('OK, help is on the way');
 })
-/*
-dialog.onDefault(builder.DialogAction.send("I'm sorry. I'm not smart enough to repsond to that."));
-*/
+
+dialog.onDefault(function (session, args, next) {
+    session.send('I do not understand you');
+    });
+
 bot.dialog('/profile', [
     function (session) {
         builder.Prompts.text(session, 'Hi! What is your name?');
