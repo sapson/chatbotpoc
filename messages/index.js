@@ -47,6 +47,9 @@ intents.onDefault('/confused');
 
 bot.dialog('/', intents);
 dialog.welcome(bot);
+dialog.information(bot);
+dialog.incident(bot);
+dialog.help(bot);
 
 bot.dialog('/confused', [
     function (session, args, next) {
