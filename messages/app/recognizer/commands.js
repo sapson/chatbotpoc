@@ -46,6 +46,10 @@ const parse = {
         }],
         intent: ('RequestHelp'),
         score: 1
+    }),
+    reset: () => ({
+        intent: 'Reset',
+        score: 1
     })
 };
 
