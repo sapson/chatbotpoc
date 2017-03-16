@@ -43,7 +43,7 @@ intents.matches('Smile', '/smileBack');
 intents.matches('GetInformation', '/information');
 intents.matches('RaiseIncident', '/incident');
 intents.matches('RequestHelp', '/help');
-intents.onDefault('/confused');
+//intents.onDefault('/confused');
 
 bot.dialog('/', intents);
 dialog.welcome(bot);
