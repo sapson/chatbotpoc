@@ -40,6 +40,9 @@ var intents = new builder.IntentDialog({
 intents.matches('Greeting', '/welcome');
 intents.matches('Reset', '/reset');
 intents.matches('Smile', '/smileBack');
+intents.matches('GetInformation', '/information');
+intents.matches('RaiseIncident', '/incident');
+intents.matches('RequestHelp', '/help');
 intents.onDefault('/confused');
 
 bot.dialog('/', intents);
