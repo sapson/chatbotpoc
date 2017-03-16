@@ -20,33 +20,6 @@ const parse = {
         }
     },
 
-    createincident: (context, parent) => ({
-        entities: [{
-            entity: application,
-            score: 1,
-            type: 'Application'
-        }],
-        intent: ('RaiseIncident'),
-        score: 1
-    }),
-    getinformation: (context, parent) => ({
-        entities: [{
-            entity: application,
-            score: 1,
-            type: 'Application'
-        }],
-        intent: ('GetInformation'),
-        score: 1
-    }),
-    help:(context, parent) => ({
-        entities: [{
-            entity: application,
-            score: 1,
-            type: 'Application'
-        }],
-        intent: ('RequestHelp'),
-        score: 1
-    }),
     reset: () => ({
         intent: 'Reset',
         score: 1
