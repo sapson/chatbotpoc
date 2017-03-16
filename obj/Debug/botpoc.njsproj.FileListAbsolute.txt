@@ -1,0 +1,2 @@
+C:\usr\botpoc\obj\Debug\botpoc.njsprojResolveAssemblyReference.cache
+C:\usr\botpoc\bin\Microsoft.NodejsTools.WebRole.dll
