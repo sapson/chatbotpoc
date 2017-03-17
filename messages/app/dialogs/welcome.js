@@ -1,3 +1,5 @@
+const builder = require('botbuilder');
+
 module.exports = function(bot) {
     bot.dialog('/welcome', [
         function (session, args, next) {
@@ -6,7 +8,10 @@ module.exports = function(bot) {
             session.send(['Hello!', 'Hi there!', 'Hi!']);
 
             if (!lastVisit) {
+                session.beginDialog('/profile');
+
                 session.send('Welcome to the GEM IS Helpdesk support channel');
+
                 session.userData = Object.assign({}, session.userData, {
                     lastVisit: new Date()
                 });

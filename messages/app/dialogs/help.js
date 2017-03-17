@@ -1,7 +1,8 @@
 const builder = require('botbuilder');
 
 module.exports = function (bot) {
-    bot.dialog('/RequestHelp', [ function (session, args, next) {
-          session.send('OK, help is on the way');
+    bot.dialog('/help', [ function (session, args, next) {
+          console.log(args);
+          session.endDialog('Help is on the way');
     }]);
 }

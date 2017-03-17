@@ -11,6 +11,8 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
 
+//var consoleconnecter = new builder.ConsoleConnector().listen();
+
 var bot = new builder.UniversalBot(connector);
 
 //LUIS recognizer that points at our model 
@@ -61,6 +63,15 @@ bot.dialog('/confused', [
 bot.dialog('/reset', [
     function (session, args, next) {
         session.endConversation(['See you later!', 'bye!']);
+    }
+]);
+
+bot.dialog('/profile',  [
+    function (session) {
+        builder.Prompts.text(session, 'Hi! What is your name?');
+    },
+    function (session, results) {
+        session.userData.name = results.response;
     }
 ]);
 
