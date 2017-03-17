@@ -11,9 +11,9 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
 
-var consoleconnecter = new builder.ConsoleConnector().listen();
+//var consoleconnecter = new builder.ConsoleConnector().listen();
 
-var bot = new builder.UniversalBot(consoleconnecter);
+var bot = new builder.UniversalBot(conncetor);
 
 //LUIS recognizer that points at our model 
 var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/5b1066af-61fe-4e69-9a21-a65de3bae211?subscription-key=96a2dfeb33e0482b884e2625b49ce68f&verbose=true';
