@@ -11,9 +11,9 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
     openIdMetadata: process.env['BotOpenIdMetadata']
 });
 
-//var consoleconnecter = new builder.ConsoleConnector().listen();
+var consoleconnecter = new builder.ConsoleConnector().listen();
 
-var bot = new builder.UniversalBot(connector);
+var bot = new builder.UniversalBot(consoleconnecter);
 
 //LUIS recognizer that points at our model 
 var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/5b1066af-61fe-4e69-9a21-a65de3bae211?subscription-key=96a2dfeb33e0482b884e2625b49ce68f&verbose=true';
@@ -26,7 +26,8 @@ const dialog = {
     welcome: require('./app/dialogs/welcome'),
     incident: require('./app/dialogs/incident'),
     information: require('./app/dialogs/information'),
-    help: require('./app/dialogs/help')
+    help: require('./app/dialogs/help'),
+    objectives: require('./app/dialogs/objectives')
 };
 
 var intents = new builder.IntentDialog({
@@ -46,12 +47,14 @@ intents.matches('GetInformation', '/information');
 intents.matches('RaiseIncident', '/incident');
 intents.matches('RequestHelp', '/help');
 intents.matches('Profile', '/profile');
+intents.matches('Objectives', '/objectives');
 intents.onDefault('/confused');
 
 bot.dialog('/', intents);
 dialog.welcome(bot);
 dialog.information(bot);
 dialog.incident(bot);
+dialog.objectives(bot);
 dialog.help(bot);
 
 bot.dialog('/confused', [
