@@ -8,7 +8,6 @@ module.exports = function(bot) {
             session.send(['Hello!', 'Hi there!', 'Hi!']);
 
             if (!lastVisit) {
-                session.beginDialog('/profile');
 
                 session.send('Welcome to the GEM IS Helpdesk support channel');
 
@@ -20,7 +19,7 @@ module.exports = function(bot) {
                 session.send('Glad you\'re back!');
             }
 
-            session.endDialog('How can I help you?');
+            session.endDialog('How can I help you %s?', session.userData.name || '' );
         }
     ]);
 };
