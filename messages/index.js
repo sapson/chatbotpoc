@@ -45,6 +45,7 @@ intents.matches('Smile', '/smileBack');
 intents.matches('GetInformation', '/information');
 intents.matches('RaiseIncident', '/incident');
 intents.matches('RequestHelp', '/help');
+intents.matches('Profile', '/profile');
 intents.onDefault('/confused');
 
 bot.dialog('/', intents);

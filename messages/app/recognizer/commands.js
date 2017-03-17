@@ -19,6 +19,10 @@ const parse = {
             return action.call(this, context, ...parts.slice(1));
         }
     },
+    profile: () => ({
+        intent: 'Profile',
+        score: 1
+    }),
 
     reset: () => ({
         intent: 'Reset',
