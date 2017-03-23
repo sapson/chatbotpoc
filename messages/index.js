@@ -2,6 +2,8 @@
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 
+//Security code on teams : d4IkZSdDImxRYpcE+B84hBbU0U4C6FJ0PZbHzFfyItc=
+
 var useEmulator = (process.env.NODE_ENV == 'development');
 
 var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure.BotServiceConnector({
