@@ -5,8 +5,6 @@ module.exports = function(bot) {
         function (session, args, next) {
             const lastVisit = session.userData.lastVisit;
 
-            session.send(['Hello!', 'Hi there!', 'Hi!']);
-
             if (!lastVisit) {
 
                 session.send('Welcome to the GEM IS Helpdesk support channel');
@@ -14,11 +12,17 @@ module.exports = function(bot) {
                 session.userData = Object.assign({}, session.userData, {
                     lastVisit: new Date()
                 });
-                session.save();
+                builder.Prompts.text(session, 'What\'s your name ?');
             } else {
                 session.send('Glad you\'re back!');
+                next();
             }
-
+           
+        },
+        function(session, results) {
+            if (results.response) {
+                session.userData.name = results.response;
+            } 
             session.endDialog('How can I help you %s?', session.userData.name || '' );
         }
     ]);

@@ -70,17 +70,6 @@ bot.dialog('/reset', [
     }
 ]);
 
-bot.dialog('/profile',  [
-    function (session) {
-        builder.Prompts.text(session, 'Hi! What is your name?');
-    },
-    function (session, results) {
-        session.userData.name = results.response;
-        session.save();
-        session.endDialog();
-    }
-]);
-
 bot.dialog('/smileBack', [
     function (session, args, next) {
         const smile = builder.EntityRecognizer.findEntity(args.entities, 'Smile');
@@ -94,53 +83,6 @@ bot.dialog('/smileBack', [
     }
 ]);
 
-/*
-
-//Begin dialog
-intents.onBegin(function (session, args, next) {
-    if (!session.userData.name) {
-        session.beginDialog('/profile');
-    } else {
-        next();
-    }
-})
-
-//Dialog intent handlers
-intents.matches(/^change name/i, [
-    function (session) {
-        session.beginDialog('/profile');
-    },
-    function (session, results) {
-        session.send('Ok... Changed your name to %s', session.userData.name);
-    }
-]);
-
-intents.matches('RaiseIncident', function (session, args, next) {
-    var application = args.entities;
-    //var entity = builder.EntityRecognizer.findEntity(args.entities, 'Application');
-    //session.send('OK, creating an incident on %s', JSON.stringify(application));
-    session.send('OK, creating an incident on %s', application[0].entity);
-}).matches('GetInformation', function (session, args, next) {
-    var application = args.entities;
-    session.send('You want some information on %s, please have a look at %s', application[0].entity,'https://gemhelp.azurewebsites.net');
-}).matches('RequestHelp', function (session, args, next) {
-    var application = args.entities;
-    session.send('OK, help is on the way');
-})
-
-intents.onDefault('/confused');
-
-bot.dialog('/profile', [
-    function (session) {
-        builder.Prompts.text(session, 'Hi! What is your name?');
-    },
-    function (session, results) {
-        session.userData.name = results.response;
-        session.endDialog();
-    }
-]);
-
-*/
 
 if (useEmulator) {
     var restify = require('restify');
