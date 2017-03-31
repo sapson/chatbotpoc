@@ -1,8 +1,7 @@
 "use strict";
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
-
-//Security code on teams : d4IkZSdDImxRYpcE+B84hBbU0U4C6FJ0PZbHzFfyItc=
+var config = require('./config');
 
 var useEmulator = (process.env.NODE_ENV == 'development');
 
@@ -15,10 +14,13 @@ var connector = useEmulator ? new builder.ChatConnector() : new botbuilder_azure
 
 var consoleconnecter = new builder.ConsoleConnector().listen();
 
+// CHANGE THIS TO CONNECTOR BEFORE DEPLOYMENT
+//var bot = new builder.UniversalBot(connector);
+
 var bot = new builder.UniversalBot(consoleconnecter);
 
 //LUIS recognizer that points at our model 
-var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/5b1066af-61fe-4e69-9a21-a65de3bae211?subscription-key=96a2dfeb33e0482b884e2625b49ce68f&verbose=true';
+var model = 'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/5b1066af-61fe-4e69-9a21-a65de3bae211?subscription-key='+config.LUIS+'&verbose=true';
 var recognizer = new builder.LuisRecognizer(model);
 var greeting = require('./app/recognizer/greeting');
 var commands = require('./app/recognizer/commands');
