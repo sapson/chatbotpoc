@@ -24,6 +24,11 @@ const parse = {
         score: 1
     }),
 
+    remit:()=> ({
+        intent: 'Remit',
+        score: 1
+    }),
+
     reset: () => ({
         intent: 'Reset',
         score: 1
